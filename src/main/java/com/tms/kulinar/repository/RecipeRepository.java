@@ -1,6 +1,5 @@
 package com.tms.kulinar.repository;
 
-import com.tms.kulinar.domain.Products;
 import com.tms.kulinar.domain.Recipe;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -35,13 +34,14 @@ public class RecipeRepository {
         session.close();
         return recipe;
     }
-    public void createRecipe(Recipe recipe){
+    public Recipe createRecipe(Recipe recipe){
         Session session= sessionFactory.openSession();
         session.beginTransaction();
         session.save(recipe);
         session.getTransaction().commit();
         session.close();
 
+        return recipe;
     }
     public void updateRecipe(Recipe recipe){
         Session session= sessionFactory.openSession();
@@ -51,11 +51,12 @@ public class RecipeRepository {
         session.close();
 
     }
-    public void deleteProducts(Recipe recipe){
+    public Recipe deleteProducts(Recipe recipe){
         Session session= sessionFactory.openSession();
         session.beginTransaction();
         session.delete(recipe);
         session.getTransaction().commit();
         session.close();
+        return recipe;
     }
 }

@@ -37,16 +37,4 @@ public class User {
     public User() {
     }
 
-    @Override
-    public String toString() {
-        return "Users{" +
-                "id=" + id +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", email='" + email + '\'' +
-                ", phone=" + phone +
-                ", password='" + password + '\'' +
-                ", login='" + login + '\'' +
-                '}';
-    }
 }

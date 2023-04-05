@@ -34,14 +34,15 @@ public class FeedbackRepository {
         session.close();
         return feedback;
     }
-    public void createFeedback(Feedback feedback){
+    public Feedback createFeedback(Feedback feedback){
        Session session= sessionFactory.openSession();
        session.beginTransaction();
        session.save(feedback);
        session.getTransaction().commit();
        session.close();
 
-   }
+        return feedback;
+    }
     public void updateFeedback(Feedback feedback){
         Session session= sessionFactory.openSession();
         session.beginTransaction();
@@ -50,11 +51,12 @@ public class FeedbackRepository {
         session.close();
 
     }
-    public void deleteFeedback(Feedback feedback){
+    public Feedback deleteFeedback(Feedback feedback){
         Session session= sessionFactory.openSession();
         session.beginTransaction();
         session.delete(feedback);
         session.getTransaction().commit();
         session.close();
+        return feedback;
     }
 }

@@ -13,7 +13,7 @@ public interface UserRepositoryJPA extends JpaRepository<User, Integer> {
     @Query(value = "SELECT u FROM User u WHERE u.id=:id")
     User findUsersById(int id);
 
-   Optional <User> findUsersByLogin(String login);
+   User findUsersByLogin(String login);
 
     @Query(nativeQuery = true, value = "SELECT role FROM roles WHERE user_id=:id")
     String getRole(int id);

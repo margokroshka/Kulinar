@@ -11,43 +11,49 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private final JwtFilter jwtFilter;
-
-    private static  final String[]  AUTH_WHITELIST = {
-            "/swagger-resources/**",
-            "/swagger-ui.html",
-            "/v2/api-docs",
-            "/webjars/**"
-    };
+    CustomUserDetailService customUserDetailService;
 
     @Autowired
-    public SecurityConfig(JwtFilter jwtFilter) {
-        this.jwtFilter = jwtFilter;
+    public SecurityConfig(CustomUserDetailService customUserDetailService) {
+        this.customUserDetailService = customUserDetailService;
     }
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers(AUTH_WHITELIST);
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+/*        auth
+                .inMemoryAuthentication()
+                .withUser("user")
+                .password(passwordEncoder().encode("user"))
+                .authorities("ROLE_USER");
+        auth
+                .inMemoryAuthentication()
+                .withUser("admin")
+                .password(passwordEncoder().encode("admin"))
+                .authorities("ROLE_ADMIN");*/
+
+        auth.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder());
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
-                .csrf().disable()
-                .httpBasic().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+        return http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/registration", "/auth", "/swagger-ui", "/swagger-ui/index.html").permitAll()
-                .antMatchers("/user/**", "createFeedback").hasAnyRole("USER", "ADMIN")
+                .antMatchers( "/createFeedback").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/user/**", "/getAll").hasRole( "ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .formLogin()
+                .and()
+                .httpBasic()
+                .and()
                 .build();
+
     }
 
     @Bean

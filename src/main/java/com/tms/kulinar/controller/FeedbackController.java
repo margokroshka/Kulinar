@@ -1,9 +1,9 @@
 package com.tms.kulinar.controller;
 
 import com.tms.kulinar.domain.Feedback;
-import com.tms.kulinar.exception.FeedbackNotFoundException;
+import com.tms.kulinar.exception.CustomException;
+import com.tms.kulinar.exception.ResourceNotFoundException;
 import com.tms.kulinar.repository.FeedbackRepository;
-import com.tms.kulinar.service.FeedbackService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -11,12 +11,19 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -40,19 +47,25 @@ public class FeedbackController {
     })
     @GetMapping("/{name}")
     @Tag(name = "byName", description = "ищём по name")
-    public ResponseEntity<Feedback> getFeedbackById(@PathVariable String name)  {
+    public ResponseEntity<Feedback> getFeedbackByName(@PathVariable String name)  {
         Feedback feedback = feedbackRepository.getFeedbackByName(name);
       return  new ResponseEntity<>(feedback, feedback.getId()!=0?HttpStatus.OK: HttpStatus.CONFLICT);
     }
 
     @GetMapping
     public ResponseEntity<ArrayList<Feedback>> getAllFeedback() {
+        if(feedbackRepository.getAllFeedback().isEmpty()){
+            throw new ResourceNotFoundException("Not found any feedback");
+        }
         return new ResponseEntity<>(feedbackRepository.getAllFeedback(), HttpStatus.OK);
     }
 
     @PostMapping("/createFeedback")
-    public ResponseEntity<HttpStatus> createFeedback(@RequestBody @Valid Feedback feedback) {
-        feedbackRepository.createFeedback(feedback);
+    public ResponseEntity<Feedback> createFeedback(@RequestBody @Valid Feedback feedback) {
+        Feedback resultFeedback = feedbackRepository.createFeedback(feedback);
+        if (resultFeedback == null) {
+            throw new CustomException("FEEDBACK_WAS_NOT_CREATED");
+        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -70,7 +83,10 @@ public class FeedbackController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteFeedback(@RequestBody @Valid Feedback feedback, BindingResult bindingResult) {
-        feedbackRepository.deleteFeedback(feedback);
+        Feedback resultFeedback=feedbackRepository.deleteFeedback(feedback);
+        if (resultFeedback != null) {
+            throw new CustomException("FEEDBACK_WAS_NOT_DELETED");
+        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

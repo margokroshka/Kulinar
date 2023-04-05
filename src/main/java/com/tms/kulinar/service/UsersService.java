@@ -23,7 +23,7 @@ public class UsersService {
     }
 
     public Optional<User> getUserByLogin(String login){
-       return userRepositoryJPA.findUsersByLogin(login);
+       return Optional.ofNullable(userRepositoryJPA.findUsersByLogin(login));
     }
 
     public ArrayList<User> getAllUsers(){
@@ -38,8 +38,9 @@ public class UsersService {
         return userRepositoryJPA.saveAndFlush(user);
     }
 
-    public void deleteUserById(int id) {
+    public User deleteUserById(int id) {
          userRepositoryJPA.deleteById(id);
+        return null;
     }
 
     public String getRole(int id) {

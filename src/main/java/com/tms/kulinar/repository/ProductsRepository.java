@@ -34,13 +34,14 @@ public class ProductsRepository {
         session.close();
         return products;
     }
-    public void createProducts(Products products){
+    public Products createProducts(Products products){
         Session session= sessionFactory.openSession();
         session.beginTransaction();
         session.save(products);
         session.getTransaction().commit();
         session.close();
 
+        return products;
     }
     public void updateProducts(Products products){
         Session session= sessionFactory.openSession();
@@ -50,11 +51,12 @@ public class ProductsRepository {
         session.close();
 
     }
-    public void deleteProducts(Products products){
+    public Products deleteProducts(Products products){
         Session session= sessionFactory.openSession();
         session.beginTransaction();
         session.delete(products);
         session.getTransaction().commit();
         session.close();
+        return products;
     }
 }

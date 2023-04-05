@@ -16,21 +16,13 @@ import java.util.Optional;
 public class SecurityService {
     private final UserRepositoryJPA userRepositoryJPA;
     private final PasswordEncoder passwordEncoder;
-    private final JwtProvider jwtProvider;
+
 
     @Autowired
-    public SecurityService(UserRepositoryJPA userRepositoryJPA, PasswordEncoder passwordEncoder,  JwtProvider jwtProvider) {
+    public SecurityService(UserRepositoryJPA userRepositoryJPA, PasswordEncoder passwordEncoder) {
         this.userRepositoryJPA = userRepositoryJPA;
         this.passwordEncoder = passwordEncoder;
-        this.jwtProvider = jwtProvider;
-    }
 
-    public String getToken(JwtAuthRequest jwtAuthRequest) {
-        Optional<User> user = userRepositoryJPA.findUsersByLogin(jwtAuthRequest.getLogin());
-        if (user.isPresent() && passwordEncoder.matches(jwtAuthRequest.getPassword(), user.get().getPassword())) {
-         return jwtProvider.createJwtToken(jwtAuthRequest.getLogin());
-        }
-        return "";
     }
 
     @Transactional(rollbackFor = Exception.class)

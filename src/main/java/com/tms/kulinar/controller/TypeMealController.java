@@ -1,9 +1,7 @@
 package com.tms.kulinar.controller;
 
-import com.tms.kulinar.domain.Feedback;
-import com.tms.kulinar.domain.Recipe;
 import com.tms.kulinar.domain.TypeMeal;
-import com.tms.kulinar.repository.RecipeRepository;
+import com.tms.kulinar.exception.CustomException;
 import com.tms.kulinar.repository.TypeMealRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -52,7 +50,10 @@ public class TypeMealController {
 
     @PostMapping
     public ResponseEntity<HttpStatus> createTypeMeal(@RequestBody @Valid TypeMeal typeMeal) {
-        mealRepository.createTypeMeal(typeMeal);
+        TypeMeal mealResult = mealRepository.createTypeMeal(typeMeal);
+        if (mealResult == null) {
+            throw new CustomException("Type_WAS_NOT_CREATED");
+        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

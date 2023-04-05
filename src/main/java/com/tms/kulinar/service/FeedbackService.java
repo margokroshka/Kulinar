@@ -1,15 +1,11 @@
 package com.tms.kulinar.service;
 
 
-import com.tms.kulinar.Mappers.FeedbackMapper;
 import com.tms.kulinar.domain.Feedback;
-import com.tms.kulinar.exception.FeedbackNotFoundException;
 import com.tms.kulinar.repository.FeedbackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 
 @Service
