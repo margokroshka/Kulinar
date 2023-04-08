@@ -52,7 +52,7 @@ public class ProductsController {
         return  new ResponseEntity<>(products,  products.getId()!=0?HttpStatus.OK: HttpStatus.CONFLICT);
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<ArrayList<Products>> getAllProducts() {
         if(productsRepository.getAllProducts().isEmpty()){
             throw new ResourceNotFoundException("Not found any Products");
@@ -60,7 +60,7 @@ public class ProductsController {
         return new ResponseEntity<>(productsRepository.getAllProducts(), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<HttpStatus> createProducts(@RequestBody @Valid Products products) {
         Products productsResult = productsRepository.createProducts(products);
         if (productsResult == null) {
@@ -69,7 +69,7 @@ public class ProductsController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping
+    @PutMapping("/update")
     public ResponseEntity<HttpStatus> updateProducts(@RequestBody @Valid Products products, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             for (ObjectError o : bindingResult.getAllErrors()) {
@@ -81,7 +81,7 @@ public class ProductsController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete")
     public ResponseEntity<HttpStatus> deleteProducts(@RequestBody @Valid Products products, BindingResult bindingResult) {
         Products productsResult = productsRepository.deleteProducts(products);
         if (productsResult != null) {

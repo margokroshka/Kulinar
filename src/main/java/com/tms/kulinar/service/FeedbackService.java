@@ -25,15 +25,15 @@ public class FeedbackService {
 
     }
 
-    public void createFeedback(Feedback feedback) {
-       feedbackRepository.createFeedback(feedback);
+    public Feedback createFeedback(Feedback feedback) {
+      return feedbackRepository.createFeedback(feedback);
     }
 
-    public void updateFeedbackById(Feedback feedback) {
-        feedbackRepository.updateFeedback(feedback);
+    public Feedback updateFeedbackById(Feedback feedback) {
+      return  feedbackRepository.updateFeedback(feedback);
     }
 
-    public void deleteFeedback(Feedback feedback) {
-        feedbackRepository.deleteFeedback(feedback);
+    public Feedback deleteFeedback(Feedback feedback) {
+       return feedbackRepository.deleteFeedback(feedback);
     }
 }

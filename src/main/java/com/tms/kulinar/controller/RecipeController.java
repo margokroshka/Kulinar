@@ -76,7 +76,7 @@ public class RecipeController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete")
     public ResponseEntity<HttpStatus> deleteRecipe(@RequestBody @Valid Recipe recipe, BindingResult bindingResult) {
         Recipe resultRecipe = recipeRepository.deleteProducts(recipe);
         if (resultRecipe != null) {

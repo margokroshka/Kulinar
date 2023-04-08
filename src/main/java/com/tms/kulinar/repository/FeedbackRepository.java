@@ -11,48 +11,52 @@ import java.util.ArrayList;
 
 @Repository
 public class FeedbackRepository {
-    public  SessionFactory sessionFactory;
+    public SessionFactory sessionFactory;
 
     public FeedbackRepository() {
-       sessionFactory=new Configuration().configure().buildSessionFactory();
+        sessionFactory = new Configuration().configure().buildSessionFactory();
     }
 
-    public ArrayList<Feedback> getAllFeedback(){
-        Session session= sessionFactory.openSession();
+    public ArrayList<Feedback> getAllFeedback() {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query query=session.createQuery("from Feedback ");
-        ArrayList<Feedback> list= (ArrayList<Feedback>) query.getResultList();
+        Query query = session.createQuery("from Feedback ");
+        ArrayList<Feedback> list = (ArrayList<Feedback>) query.getResultList();
         session.getTransaction().commit();
         session.close();
         return list;
     }
-    public Feedback getFeedbackByName(String name){
-        Session session= sessionFactory.openSession();
+
+    public Feedback getFeedbackByName(String name) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Feedback feedback=session.get(Feedback.class,name);
+        Feedback feedback = session.get(Feedback.class, name);
         session.getTransaction().commit();
         session.close();
         return feedback;
     }
-    public Feedback createFeedback(Feedback feedback){
-       Session session= sessionFactory.openSession();
-       session.beginTransaction();
-       session.save(feedback);
-       session.getTransaction().commit();
-       session.close();
 
+    public Feedback createFeedback(Feedback feedback) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.save(feedback);
+        session.getTransaction().commit();
+        session.close();
         return feedback;
     }
-    public void updateFeedback(Feedback feedback){
-        Session session= sessionFactory.openSession();
+
+    public Feedback updateFeedback(Feedback feedback) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.saveOrUpdate(feedback);
         session.getTransaction().commit();
         session.close();
 
+        return feedback;
     }
-    public Feedback deleteFeedback(Feedback feedback){
-        Session session= sessionFactory.openSession();
+
+    public Feedback deleteFeedback(Feedback feedback) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.delete(feedback);
         session.getTransaction().commit();

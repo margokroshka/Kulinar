@@ -1,13 +1,30 @@
 package com.tms.kulinar.domain;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tms.kulinar.EnumTypeM;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlEnum;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToMany;
+import javax.persistence.FetchType;
+import javax.xml.bind.annotation.XmlTransient;
+import java.util.List;
 
-@Data
+
+@Setter
+@Getter
 @Entity
-@Table(name="recipe")
+
+@Table(name = "recipe")
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recipe_seq")
@@ -18,10 +35,10 @@ public class Recipe {
     private int taste;
 
     @Column(name = "time")
-    private int time;
+    private String time;
 
     @Column(name = "amount")
-    private int amount;
+    private String amount;
 
     @Column(name = "complexity")
     private int complexity;
@@ -29,12 +46,24 @@ public class Recipe {
     @Column(name = "text")
     private String text;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type_meal")
+    private EnumTypeM type_meal;
+
     @Column(name = "products_id_fk")
     private int products_id_fk;
 
-    @Column(name = "user_id_fk")
-    private int user_id_fk;
+    @JsonIgnore
+    @XmlTransient
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "recipe")
+    private List<User> users;
 
-    @Column(name = "type_meal")
-    private int type_meal;
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
 }

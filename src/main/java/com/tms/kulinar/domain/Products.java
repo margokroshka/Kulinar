@@ -1,13 +1,20 @@
 package com.tms.kulinar.domain;
 
-import com.tms.kulinar.annotation.IsNub;
+
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.SequenceGenerator;
+
 
 @Data
 @Entity
-@Table(name="products")
+@Table(name = "products")
 public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "products_seq")

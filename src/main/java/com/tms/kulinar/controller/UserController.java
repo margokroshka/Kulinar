@@ -61,7 +61,7 @@ public class UserController {
         return new ResponseEntity<>(usersService.createUser(user) != null ? HttpStatus.CREATED : HttpStatus.CONFLICT);
     }
 
-    @PutMapping
+    @PutMapping("/update/{id}")
     public ResponseEntity<HttpStatus> updateUserById(@RequestBody @Valid User user, BindingResult bindingResult ) {
         if (bindingResult.hasErrors()) {
             for (ObjectError o : bindingResult.getAllErrors()) {
@@ -73,7 +73,7 @@ public class UserController {
 
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable int id) {
         User userResult=usersService.deleteUserById(id);
         if (userResult != null) {

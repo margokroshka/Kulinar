@@ -1,16 +1,12 @@
 package com.tms.kulinar.service;
 
 import com.tms.kulinar.domain.User;
-import com.tms.kulinar.domain.request.JwtAuthRequest;
 import com.tms.kulinar.domain.request.RegistrationUser;
 import com.tms.kulinar.repository.UserRepositoryJPA;
-import com.tms.kulinar.security.JWT.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 public class SecurityService {

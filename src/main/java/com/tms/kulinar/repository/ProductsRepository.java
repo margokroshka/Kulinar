@@ -14,28 +14,30 @@ public class ProductsRepository {
     public SessionFactory sessionFactory;
 
     public ProductsRepository() {
-        sessionFactory=new Configuration().configure().buildSessionFactory();
+        sessionFactory = new Configuration().configure().buildSessionFactory();
     }
 
-    public ArrayList<Products> getAllProducts(){
-        Session session= sessionFactory.openSession();
+    public ArrayList<Products> getAllProducts() {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query query=session.createQuery("from Products ");
-        ArrayList<Products> list= (ArrayList<Products>) query.getResultList();
+        Query query = session.createQuery("from Products ");
+        ArrayList<Products> list = (ArrayList<Products>) query.getResultList();
         session.getTransaction().commit();
         session.close();
         return list;
     }
-    public Products getProductsByProduct_name(String product_name){
-        Session session= sessionFactory.openSession();
+
+    public Products getProductsByProduct_name(String product_name) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Products products=session.get(Products.class,product_name);
+        Products products = session.get(Products.class, product_name);
         session.getTransaction().commit();
         session.close();
         return products;
     }
-    public Products createProducts(Products products){
-        Session session= sessionFactory.openSession();
+
+    public Products createProducts(Products products) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(products);
         session.getTransaction().commit();
@@ -43,16 +45,18 @@ public class ProductsRepository {
 
         return products;
     }
-    public void updateProducts(Products products){
-        Session session= sessionFactory.openSession();
+
+    public Products updateProducts(Products products) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.saveOrUpdate(products);
         session.getTransaction().commit();
         session.close();
-
+        return products;
     }
-    public Products deleteProducts(Products products){
-        Session session= sessionFactory.openSession();
+
+    public Products deleteProducts(Products products) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.delete(products);
         session.getTransaction().commit();

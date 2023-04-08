@@ -14,28 +14,30 @@ public class RecipeRepository {
     public SessionFactory sessionFactory;
 
     public RecipeRepository() {
-        sessionFactory=new Configuration().configure().buildSessionFactory();
+        sessionFactory = new Configuration().configure().buildSessionFactory();
     }
 
-    public ArrayList<Recipe> getAllRecipe(){
-        Session session= sessionFactory.openSession();
+    public ArrayList<Recipe> getAllRecipe() {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query query=session.createQuery("from Recipe ");
-        ArrayList<Recipe> list= (ArrayList<Recipe>) query.getResultList();
+        Query query = session.createQuery("from Recipe ");
+        ArrayList<Recipe> list = (ArrayList<Recipe>) query.getResultList();
         session.getTransaction().commit();
         session.close();
         return list;
     }
-    public Recipe getRecipeById(int id){
-        Session session= sessionFactory.openSession();
+
+    public Recipe getRecipeById(int id) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Recipe recipe=session.get(Recipe.class,id);
+        Recipe recipe = session.get(Recipe.class, id);
         session.getTransaction().commit();
         session.close();
         return recipe;
     }
-    public Recipe createRecipe(Recipe recipe){
-        Session session= sessionFactory.openSession();
+
+    public Recipe createRecipe(Recipe recipe) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(recipe);
         session.getTransaction().commit();
@@ -43,16 +45,18 @@ public class RecipeRepository {
 
         return recipe;
     }
-    public void updateRecipe(Recipe recipe){
-        Session session= sessionFactory.openSession();
+
+    public Recipe updateRecipe(Recipe recipe) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.saveOrUpdate(recipe);
         session.getTransaction().commit();
         session.close();
-
+        return recipe;
     }
-    public Recipe deleteProducts(Recipe recipe){
-        Session session= sessionFactory.openSession();
+
+    public Recipe deleteProducts(Recipe recipe) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.delete(recipe);
         session.getTransaction().commit();

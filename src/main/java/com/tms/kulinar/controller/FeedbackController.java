@@ -52,7 +52,7 @@ public class FeedbackController {
       return  new ResponseEntity<>(feedback, feedback.getId()!=0?HttpStatus.OK: HttpStatus.CONFLICT);
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<ArrayList<Feedback>> getAllFeedback() {
         if(feedbackRepository.getAllFeedback().isEmpty()){
             throw new ResourceNotFoundException("Not found any feedback");
@@ -61,15 +61,17 @@ public class FeedbackController {
     }
 
     @PostMapping("/createFeedback")
-    public ResponseEntity<Feedback> createFeedback(@RequestBody @Valid Feedback feedback) {
-        Feedback resultFeedback = feedbackRepository.createFeedback(feedback);
-        if (resultFeedback == null) {
+    public ResponseEntity<Feedback> createFeedback(@RequestBody @Valid Feedback feedback, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            for (ObjectError o : bindingResult.getAllErrors()) {
+                log.warn(o.getDefaultMessage());
+            }
             throw new CustomException("FEEDBACK_WAS_NOT_CREATED");
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(feedbackRepository.createFeedback(feedback) != null ? HttpStatus.CREATED : HttpStatus.CONFLICT);
     }
 
-    @PutMapping
+    @PutMapping("/update/{id}")
     public ResponseEntity<HttpStatus> updateFeedback(@RequestBody @Valid Feedback feedback, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             for (ObjectError o : bindingResult.getAllErrors()) {
@@ -81,10 +83,10 @@ public class FeedbackController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteFeedback(@RequestBody @Valid Feedback feedback, BindingResult bindingResult) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<HttpStatus> deleteFeedback(@RequestBody @Valid Feedback feedback) {
         Feedback resultFeedback=feedbackRepository.deleteFeedback(feedback);
-        if (resultFeedback != null) {
+        if (resultFeedback == null) {
             throw new CustomException("FEEDBACK_WAS_NOT_DELETED");
         }
         return new ResponseEntity<>(HttpStatus.CREATED);

@@ -1,13 +1,24 @@
 package com.tms.kulinar.domain;
 
-
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
 
-@Data
+@Setter
+@Getter
 @Entity
 @Table(name = "users")
 public class User {
@@ -24,7 +35,7 @@ public class User {
     private String email;
 
     @Column(name = "phone")
-    private int phone;
+    private String phone;
 
     @Column(name = "password")
     private String password;
@@ -37,4 +48,15 @@ public class User {
     public User() {
     }
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "recipe_id", nullable = false)
+    private Recipe recipe;
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
 }
