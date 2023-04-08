@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: db
+    ports:
+    - "5432:5432"
+    environment:
+      - POSTGRES_DB=kulinar
+      - POSTGRES_PASSWORD=root
+    image: postgres:latest
+    networks:
+      - kulinarNetwork
+
+  kulinar:
+    container_name: kulinar
+    image: margaritabaranovskay/kulinar:v1
+    ports:
+    - "8080:8080"
+    environment:
+     - DB_HOST=db
+    depends_on:
+      - db
+    networks:
+      - kulinarNetwork
+
+networks:
+  backend:
+    driver: bridge
+
+
