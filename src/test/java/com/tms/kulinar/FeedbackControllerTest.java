@@ -22,9 +22,7 @@ import java.util.ArrayList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
@@ -72,14 +70,14 @@ public class FeedbackControllerTest {
 
     @Test
     void findFeedbackById() throws Exception {
-        when(feedbackService.getFeedbackByName(anyString())).thenReturn(feedback);
+        when(feedbackService.getFeedbackById(anyInt())).thenReturn(feedback);
 
-        MvcResult result = mvc.perform(get("/feedback/{name}", anyLong()))
+        MvcResult result = mvc.perform(get("/feedback/{id}", anyInt()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
                 .andReturn();
         assertThat(result.getResponse().getContentAsString(), allOf(notNullValue()));
-        verify(feedbackService, times(1)).getFeedbackByName(anyString());
+        verify(feedbackService, times(1)).getFeedbackById(anyInt());
     }
 
     @Test

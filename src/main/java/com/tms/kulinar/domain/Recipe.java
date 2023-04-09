@@ -46,9 +46,9 @@ public class Recipe {
     @Column(name = "text")
     private String text;
 
-    @Enumerated(EnumType.STRING)
+   // @Enumerated(EnumType.STRING)
     @Column(name = "type_meal")
-    private EnumTypeM type_meal;
+    private String type_meal;
 
     @Column(name = "products_id_fk")
     private int products_id_fk;

@@ -60,7 +60,7 @@ public class RecipeControllerTest {
         recipe.setAmount("200g");
         recipe.setComplexity(5);
         recipe.setText("it is text recipe");
-        recipe.setType_meal(EnumTypeM.MAIN_MEAL);
+        recipe.setType_meal("main_meal");
 
     }
 

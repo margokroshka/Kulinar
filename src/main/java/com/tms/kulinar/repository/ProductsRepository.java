@@ -27,10 +27,10 @@ public class ProductsRepository {
         return list;
     }
 
-    public Products getProductsByProduct_name(String product_name) {
+    public Products getProductsById(int id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Products products = session.get(Products.class, product_name);
+        Products products = session.get(Products.class, id);
         session.getTransaction().commit();
         session.close();
         return products;

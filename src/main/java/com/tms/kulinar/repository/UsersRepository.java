@@ -14,47 +14,52 @@ public class UsersRepository {
     public SessionFactory sessionFactory;
 
     public UsersRepository() {
-        sessionFactory=new Configuration().configure().buildSessionFactory();
+        sessionFactory = new Configuration().configure().buildSessionFactory();
     }
 
-    public ArrayList<User> getAllUsers(){
-        Session session= sessionFactory.openSession();
+    public ArrayList<User> getAllUsers() {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query query=session.createQuery("from User ");
-        ArrayList<User> list= (ArrayList<User>) query.getResultList();
+        Query query = session.createQuery("from User ");
+        ArrayList<User> list = (ArrayList<User>) query.getResultList();
         session.getTransaction().commit();
         session.close();
         return list;
     }
-    public User getUserById(int id){
-        Session session= sessionFactory.openSession();
+
+    public User getUserById(int id) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
-        User user=session.get(User.class,id);
+        User user = session.get(User.class, id);
         session.getTransaction().commit();
         session.close();
         return user;
     }
-    public void createUser(User user){
-        Session session= sessionFactory.openSession();
+
+    public User createUser(User user) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(user);
         session.getTransaction().commit();
         session.close();
-
+        return user;
     }
-    public void updateUser(User user){
-        Session session= sessionFactory.openSession();
+
+    public User updateUser(User user) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.saveOrUpdate(user);
         session.getTransaction().commit();
         session.close();
-
+        return user;
     }
-    public void deleteUser(User user){
-        Session session= sessionFactory.openSession();
+
+    public User deleteUser(User user) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.delete(user);
         session.getTransaction().commit();
         session.close();
+        return user;
     }
 }

@@ -1,6 +1,7 @@
 package com.tms.kulinar.annotation;
 
 import com.tms.kulinar.validator.IsNubValidator;
+import org.springframework.http.HttpStatus;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -14,7 +15,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IsNub {
     String message() default "Go to study!Puppy!";
-
     Class<?>[] groups() default { };
 
     Class<? extends Payload>[] payload() default { };

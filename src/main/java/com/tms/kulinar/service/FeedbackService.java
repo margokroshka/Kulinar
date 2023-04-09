@@ -16,8 +16,8 @@ public class FeedbackService {
         this.feedbackRepository = feedbackRepository;
     }
 
-    public Feedback getFeedbackByName(String name) {
-        return feedbackRepository.getFeedbackByName(name);
+    public Feedback getFeedbackById(int id) {
+        return feedbackRepository.getFeedbackById(id);
     }
 
     public ArrayList<Feedback> getAllFeedback() {

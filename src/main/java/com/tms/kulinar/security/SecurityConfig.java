@@ -21,17 +21,6 @@ public class SecurityConfig {
     }
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-/*        auth
-                .inMemoryAuthentication()
-                .withUser("user")
-                .password(passwordEncoder().encode("user"))
-                .authorities("ROLE_USER");
-        auth
-                .inMemoryAuthentication()
-                .withUser("admin")
-                .password(passwordEncoder().encode("admin"))
-                .authorities("ROLE_ADMIN");*/
-
         auth.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder());
     }
 
@@ -40,8 +29,8 @@ public class SecurityConfig {
         return http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/registration", "/auth", "/swagger-ui", "/swagger-ui/index.html").permitAll()
-                .antMatchers( "/createFeedback").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/user/**", "/getAll").hasRole( "ADMIN")
+                .antMatchers( "/createFeedback","/products/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/user/**").hasRole( "ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

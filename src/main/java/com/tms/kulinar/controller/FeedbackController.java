@@ -45,10 +45,10 @@ public class FeedbackController {
             @ApiResponse(responseCode = "200", description = "Все ОК! Улыбаемся и машем"),
             @ApiResponse(responseCode = "404", description = "Куда ты жмал?!!? Ничего не нашел")
     })
-    @GetMapping("/{name}")
-    @Tag(name = "byName", description = "ищём по name")
-    public ResponseEntity<Feedback> getFeedbackByName(@PathVariable String name)  {
-        Feedback feedback = feedbackRepository.getFeedbackByName(name);
+    @GetMapping("/{id}")
+    @Tag(name = "byId", description = "ищём по id")
+    public ResponseEntity<Feedback> getFeedbackById(@PathVariable int id)  {
+        Feedback feedback = feedbackRepository.getFeedbackById(id);
       return  new ResponseEntity<>(feedback, feedback.getId()!=0?HttpStatus.OK: HttpStatus.CONFLICT);
     }
 

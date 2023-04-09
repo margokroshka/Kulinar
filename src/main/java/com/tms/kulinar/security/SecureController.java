@@ -13,25 +13,6 @@ import java.net.http.HttpResponse;
 
 @Controller
 public class SecureController {
-    /*
-        @GetMapping("/home")
-        public String getHomePage(){
-            return "home";
-        }
-        @GetMapping("/hello")
-        public String getHelloPage(){
-            return "hello";
-        }
-        @GetMapping("/bye")
-        public String getByePage(Principal principal){
-            System.out.println(principal);
-            System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-            return "bye";
-        }
-        @GetMapping
-        public String getHomeAlsoPage(){
-            return "home";
-        }*/
     SecurityService securityService;
 
     @Autowired

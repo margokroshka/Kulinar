@@ -50,12 +50,12 @@ public class RecipeController {
         return  new ResponseEntity<>(recipe,  HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<ArrayList<Recipe>> getAllRecipes() {
         return new ResponseEntity<>(recipeRepository.getAllRecipe(), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<HttpStatus> createRecipe(@RequestBody @Valid Recipe recipe) {
         Recipe resultRecipe = recipeRepository.createRecipe(recipe);
         if (resultRecipe == null) {
@@ -64,7 +64,7 @@ public class RecipeController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping
+    @PutMapping("/update/{id}")
     public ResponseEntity<HttpStatus> updateRecipe(@RequestBody @Valid Recipe recipe, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             for (ObjectError o : bindingResult.getAllErrors()) {
@@ -79,7 +79,7 @@ public class RecipeController {
     @DeleteMapping("/delete")
     public ResponseEntity<HttpStatus> deleteRecipe(@RequestBody @Valid Recipe recipe, BindingResult bindingResult) {
         Recipe resultRecipe = recipeRepository.deleteProducts(recipe);
-        if (resultRecipe != null) {
+        if (resultRecipe == null) {
             throw new CustomException("RECIPE_WAS_NOT_DELETED");
         }
         return new ResponseEntity<>(HttpStatus.CREATED);

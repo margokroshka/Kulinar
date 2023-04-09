@@ -27,10 +27,10 @@ public class FeedbackRepository {
         return list;
     }
 
-    public Feedback getFeedbackByName(String name) {
+    public Feedback getFeedbackById(int id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Feedback feedback = session.get(Feedback.class, name);
+        Feedback feedback = session.get(Feedback.class, id);
         session.getTransaction().commit();
         session.close();
         return feedback;

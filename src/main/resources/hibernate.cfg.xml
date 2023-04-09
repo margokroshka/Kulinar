@@ -20,8 +20,6 @@
         <mapping class="com.tms.kulinar.domain.User"/>
         <mapping class="com.tms.kulinar.domain.Products"/>
         <mapping class="com.tms.kulinar.domain.Recipe"/>
-        <mapping class="com.tms.kulinar.domain.TypeMeal"/>
-        <mapping class="com.tms.kulinar.domain.Secure"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -45,10 +45,10 @@ public class ProductsController {
             @ApiResponse(responseCode = "200", description = "Все ОК! Улыбаемся и машем"),
             @ApiResponse(responseCode = "404", description = "Куда ты жмал?!!? Ничего не нашел")
     })
-    @GetMapping("/{productName}")
-    @Tag(name = "byproductName", description = "ищём по productName")
-    public ResponseEntity<Products> getProductsByProduct_name( @PathVariable String productName)  {
-        Products products = productsRepository.getProductsByProduct_name(productName);
+    @GetMapping("/{id}")
+    @Tag(name = "id", description = "ищём по id")
+    public ResponseEntity<Products> getProductsById( @PathVariable int id)  {
+        Products products = productsRepository.getProductsById(id);
         return  new ResponseEntity<>(products,  products.getId()!=0?HttpStatus.OK: HttpStatus.CONFLICT);
     }
 
@@ -84,7 +84,7 @@ public class ProductsController {
     @DeleteMapping("/delete")
     public ResponseEntity<HttpStatus> deleteProducts(@RequestBody @Valid Products products, BindingResult bindingResult) {
         Products productsResult = productsRepository.deleteProducts(products);
-        if (productsResult != null) {
+        if (productsResult == null) {
             throw new CustomException("PRODUCTS_WAS_NOT_DELETED");
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
