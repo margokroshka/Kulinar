@@ -1,6 +1,5 @@
 package com.tms.kulinar.service;
 
-
 import com.tms.kulinar.domain.Feedback;
 import com.tms.kulinar.repository.FeedbackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import java.util.ArrayList;
 @Service
 public class FeedbackService {
     public FeedbackRepository feedbackRepository;
+
     @Autowired
     public FeedbackService(FeedbackRepository feedbackRepository) {
         this.feedbackRepository = feedbackRepository;
@@ -26,14 +26,14 @@ public class FeedbackService {
     }
 
     public Feedback createFeedback(Feedback feedback) {
-      return feedbackRepository.createFeedback(feedback);
+        return feedbackRepository.createFeedback(feedback);
     }
 
     public Feedback updateFeedbackById(Feedback feedback) {
-      return  feedbackRepository.updateFeedback(feedback);
+        return feedbackRepository.updateFeedback(feedback);
     }
 
     public Feedback deleteFeedback(Feedback feedback) {
-       return feedbackRepository.deleteFeedback(feedback);
+        return feedbackRepository.deleteFeedback(feedback);
     }
 }

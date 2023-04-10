@@ -2,7 +2,12 @@ package com.tms.kulinar.asspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -11,7 +16,7 @@ import java.time.LocalTime;
 
 @Aspect
 @Component
-public class  LogAspect {
+public class LogAspect {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 

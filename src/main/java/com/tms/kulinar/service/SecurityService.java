@@ -13,7 +13,6 @@ public class SecurityService {
     private final UserRepositoryJPA userRepositoryJPA;
     private final PasswordEncoder passwordEncoder;
 
-
     @Autowired
     public SecurityService(UserRepositoryJPA userRepositoryJPA, PasswordEncoder passwordEncoder) {
         this.userRepositoryJPA = userRepositoryJPA;

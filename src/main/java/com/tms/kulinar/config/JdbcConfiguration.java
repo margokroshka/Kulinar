@@ -3,13 +3,11 @@ package com.tms.kulinar.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.stereotype.Controller;
 
 import javax.sql.DataSource;
-import java.util.Objects;
+
 
 @Configuration
 public class JdbcConfiguration {

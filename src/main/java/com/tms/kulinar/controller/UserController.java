@@ -1,7 +1,6 @@
 package com.tms.kulinar.controller;
 
 import com.tms.kulinar.domain.User;
-import com.tms.kulinar.domain.request.RegistrationUser;
 import com.tms.kulinar.exception.CustomException;
 import com.tms.kulinar.exception.ResourceNotFoundException;
 import com.tms.kulinar.repository.UsersRepository;
@@ -40,12 +39,12 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id) {
         User users = usersRepository.getUserById(id);
-        return  new ResponseEntity<>(users, users.getId()!=0?HttpStatus.OK: HttpStatus.CONFLICT);
+        return new ResponseEntity<>(users, users.getId() != 0 ? HttpStatus.OK : HttpStatus.CONFLICT);
     }
 
     @GetMapping("/getAll")
     public ResponseEntity<ArrayList<User>> getAllUsers() {
-        if(usersRepository.getAllUsers().isEmpty()){
+        if (usersRepository.getAllUsers().isEmpty()) {
             throw new ResourceNotFoundException("Not found any users");
         }
         return new ResponseEntity<>(usersRepository.getAllUsers(), HttpStatus.OK);
@@ -63,7 +62,7 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<HttpStatus> updateUserById(@RequestBody @Valid User user, BindingResult bindingResult ) {
+    public ResponseEntity<HttpStatus> updateUserById(@RequestBody @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             for (ObjectError o : bindingResult.getAllErrors()) {
                 log.warn(o.getDefaultMessage());
@@ -76,7 +75,7 @@ public class UserController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<HttpStatus> delete(@RequestBody @Valid User user) {
-        User userResult= usersRepository.deleteUser(user);
+        User userResult = usersRepository.deleteUser(user);
         if (userResult == null) {
             throw new CustomException("USER_WAS_NOT_DELETED");
         }

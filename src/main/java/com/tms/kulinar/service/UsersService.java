@@ -1,50 +1,44 @@
 package com.tms.kulinar.service;
 
 import com.tms.kulinar.domain.User;
-import com.tms.kulinar.repository.UserRepositoryJPA;
+import com.tms.kulinar.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
 public class UsersService {
 
-    UserRepositoryJPA userRepositoryJPA;
+    UsersRepository userRepository;
 
     @Autowired
-    public UsersService(UserRepositoryJPA userRepositoryJPA) {
-        this.userRepositoryJPA = userRepositoryJPA;
+    public UsersService(UsersRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public User getUserById(int id){
-       return userRepositoryJPA.findById(id).get();
+       return userRepository.getUserById(id);
     }
 
-    public Optional<User> getUserByLogin(String login){
-       return Optional.ofNullable(userRepositoryJPA.findUsersByLogin(login));
-    }
 
     public ArrayList<User> getAllUsers(){
-        return (ArrayList<User>) userRepositoryJPA.findAll();
+        return (ArrayList<User>) userRepository.getAllUsers();
     }
 
     public User createUser(User user) {
-         return userRepositoryJPA.save(user);
+         return userRepository.createUser(user);
     }
 
     public User updateUserById(User user) {
-        return userRepositoryJPA.saveAndFlush(user);
+        return userRepository.updateUser(user);
     }
 
-    public User deleteUserById(int id) {
-         userRepositoryJPA.deleteById(id);
+    public User deleteUser(User user) {
+         userRepository.deleteUser(user);
         return null;
     }
 
-    public String getRole(int id) {
-         return  userRepositoryJPA.getRole(id);
-    }
+
 
 }

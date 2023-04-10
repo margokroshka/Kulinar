@@ -126,6 +126,6 @@ public class UserControllerTest {
         MvcResult result = mvc.perform(delete("/user/{id}", anyLong()))
                 .andExpect(status().isNoContent())
                 .andReturn();
-        verify(userService, times(1)).deleteUserById(anyInt());
+        verify(userService, times(1)).deleteUser(any());
     }
 }

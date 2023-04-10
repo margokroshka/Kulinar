@@ -38,16 +38,16 @@ public class RecipeController {
     }
 
     @Operation(description = "Ищет юзера по ID", summary = "Ищет юзера")
-    @ApiResponses(value={
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Все ОК! Улыбаемся и машем"),
             @ApiResponse(responseCode = "404", description = "Куда ты жмал?!!? Ничего не нашел")
     })
 
     @GetMapping("/{id}")
     @Tag(name = "byID", description = "ищём по id")
-    public ResponseEntity<Recipe> getRecipesById(@PathVariable int id)  {
+    public ResponseEntity<Recipe> getRecipesById(@PathVariable int id) {
         Recipe recipe = recipeRepository.getRecipeById(id);
-        return  new ResponseEntity<>(recipe,  HttpStatus.OK);
+        return new ResponseEntity<>(recipe, HttpStatus.OK);
     }
 
     @GetMapping("/getAll")

@@ -18,7 +18,7 @@ public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "feedback_seq")
     @SequenceGenerator(name = "feedback_seq", sequenceName = "feedback_id_seq", allocationSize = 1)
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -28,5 +28,5 @@ public class Feedback {
     private String content;
 
     @Column(name = "recipe_id")
-    private int recipe_id;
+    private Integer recipe_id;
 }

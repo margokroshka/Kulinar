@@ -41,20 +41,20 @@ public class ProductsController {
     }
 
     @Operation(description = "Ищет продукт по name", summary = "Ищет продукт")
-    @ApiResponses(value={
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Все ОК! Улыбаемся и машем"),
             @ApiResponse(responseCode = "404", description = "Куда ты жмал?!!? Ничего не нашел")
     })
     @GetMapping("/{id}")
     @Tag(name = "id", description = "ищём по id")
-    public ResponseEntity<Products> getProductsById( @PathVariable int id)  {
+    public ResponseEntity<Products> getProductsById(@PathVariable int id) {
         Products products = productsRepository.getProductsById(id);
-        return  new ResponseEntity<>(products,  products.getId()!=0?HttpStatus.OK: HttpStatus.CONFLICT);
+        return new ResponseEntity<>(products, products.getId() != 0 ? HttpStatus.OK : HttpStatus.CONFLICT);
     }
 
     @GetMapping("/getAll")
     public ResponseEntity<ArrayList<Products>> getAllProducts() {
-        if(productsRepository.getAllProducts().isEmpty()){
+        if (productsRepository.getAllProducts().isEmpty()) {
             throw new ResourceNotFoundException("Not found any Products");
         }
         return new ResponseEntity<>(productsRepository.getAllProducts(), HttpStatus.OK);

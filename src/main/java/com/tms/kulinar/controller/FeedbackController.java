@@ -41,20 +41,20 @@ public class FeedbackController {
     }
 
     @Operation(description = "Ищет фидбэк по name", summary = "Ищет фидбэк")
-    @ApiResponses(value={
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Все ОК! Улыбаемся и машем"),
             @ApiResponse(responseCode = "404", description = "Куда ты жмал?!!? Ничего не нашел")
     })
     @GetMapping("/{id}")
     @Tag(name = "byId", description = "ищём по id")
-    public ResponseEntity<Feedback> getFeedbackById(@PathVariable int id)  {
+    public ResponseEntity<Feedback> getFeedbackById(@PathVariable int id) {
         Feedback feedback = feedbackRepository.getFeedbackById(id);
-      return  new ResponseEntity<>(feedback, feedback.getId()!=0?HttpStatus.OK: HttpStatus.CONFLICT);
+        return new ResponseEntity<>(feedback, feedback.getId() != 0 ? HttpStatus.OK : HttpStatus.CONFLICT);
     }
 
     @GetMapping("/getAll")
     public ResponseEntity<ArrayList<Feedback>> getAllFeedback() {
-        if(feedbackRepository.getAllFeedback().isEmpty()){
+        if (feedbackRepository.getAllFeedback().isEmpty()) {
             throw new ResourceNotFoundException("Not found any feedback");
         }
         return new ResponseEntity<>(feedbackRepository.getAllFeedback(), HttpStatus.OK);
@@ -85,7 +85,7 @@ public class FeedbackController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<HttpStatus> deleteFeedback(@RequestBody @Valid Feedback feedback) {
-        Feedback resultFeedback=feedbackRepository.deleteFeedback(feedback);
+        Feedback resultFeedback = feedbackRepository.deleteFeedback(feedback);
         if (resultFeedback == null) {
             throw new CustomException("FEEDBACK_WAS_NOT_DELETED");
         }

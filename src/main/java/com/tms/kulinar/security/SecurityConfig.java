@@ -19,6 +19,7 @@ public class SecurityConfig {
     public SecurityConfig(CustomUserDetailService customUserDetailService) {
         this.customUserDetailService = customUserDetailService;
     }
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder());
@@ -29,8 +30,8 @@ public class SecurityConfig {
         return http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/registration", "/auth", "/swagger-ui", "/swagger-ui/index.html").permitAll()
-                .antMatchers( "/createFeedback","/products/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/user/**").hasRole( "ADMIN")
+                .antMatchers("/createFeedback", "/products/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/user/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

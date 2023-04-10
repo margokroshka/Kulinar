@@ -22,7 +22,7 @@ public class SecureController {
 
     @PostMapping("/registration")
     public ResponseEntity<HttpResponse> registrationUser(@RequestBody RegistrationUser registrationUser) {
-        return new ResponseEntity<>(securityService.registration(registrationUser)? HttpStatus.CREATED:HttpStatus.CONFLICT);
+        return new ResponseEntity<>(securityService.registration(registrationUser) ? HttpStatus.CREATED : HttpStatus.CONFLICT);
     }
 
 }
