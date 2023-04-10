@@ -43,7 +43,6 @@ public class User {
     @Column(name = "login")
     private String login;
 
-
     private static final Logger log = LoggerFactory.getLogger(User.class);
 
     public User() {

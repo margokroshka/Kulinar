@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 
 import java.sql.Timestamp;
 
-
 @Data
 @AllArgsConstructor
 public class ErrorMessage {

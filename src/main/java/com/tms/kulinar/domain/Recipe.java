@@ -16,7 +16,6 @@ import javax.persistence.FetchType;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.List;
 
-
 @Setter
 @Getter
 @Entity
@@ -60,5 +59,4 @@ public class Recipe {
     public void setUsers(List<User> users) {
         this.users = users;
     }
-
 }

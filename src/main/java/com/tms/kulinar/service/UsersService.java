@@ -38,7 +38,4 @@ public class UsersService {
          userRepository.deleteUser(user);
         return null;
     }
-
-
-
 }
