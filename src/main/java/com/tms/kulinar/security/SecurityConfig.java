@@ -30,7 +30,7 @@ public class SecurityConfig {
         return http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/registration", "/auth", "/swagger-ui", "/swagger-ui/index.html").permitAll()
-                .antMatchers("/createFeedback", "/products/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/feedback/**", "/products/**", "/recipe/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/user/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
