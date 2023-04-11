@@ -42,7 +42,6 @@ public class ProductsRepository {
         session.save(products);
         session.getTransaction().commit();
         session.close();
-
         return products;
     }
 

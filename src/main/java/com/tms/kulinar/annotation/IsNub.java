@@ -16,6 +16,5 @@ public @interface IsNub {
     String message() default "Go to study!Puppy!";
 
     Class<?>[] groups() default {};
-
     Class<? extends Payload>[] payload() default {};
 }

@@ -10,10 +10,12 @@ import com.tms.kulinar.domain.request.RegistrationUser;
 import com.tms.kulinar.repository.ProductsRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -27,7 +29,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
@@ -40,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ProductControllerTest {
     MockMvc mvc;
 
@@ -76,13 +78,13 @@ public class ProductControllerTest {
 
     @Test
     void findRecipeById() throws Exception {
-        when(productsRepository.getProductsByProduct_name(anyString())).thenReturn(products);
+        when(productsRepository.getProductsById(anyInt())).thenReturn(products);
         MvcResult result = mvc.perform(get("/products/{productName}", anyLong()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
                 .andReturn();
         assertThat(result.getResponse().getContentAsString(), allOf(notNullValue()));
-        verify(productsRepository, times(1)).getProductsByProduct_name(anyString());
+        verify(productsRepository, times(1)).getProductsById(anyInt());
     }
 
     @Test

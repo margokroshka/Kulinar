@@ -42,7 +42,6 @@ public class RecipeRepository {
         session.save(recipe);
         session.getTransaction().commit();
         session.close();
-
         return recipe;
     }
 
