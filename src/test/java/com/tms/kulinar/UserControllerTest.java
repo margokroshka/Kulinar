@@ -55,8 +55,8 @@ public class UserControllerTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
         this.mvc = MockMvcBuilders.standaloneSetup(userController).build();
-        user.setFirst_name("Test_Name");
-        user.setLast_name("Test_Last-name");
+        user.setFirstName("Test_Name");
+        user.setLastName("Test_Last-name");
         user.setEmail("test-email@gmail.com");
         user.setPhone("80(29)0000000");
         user.setLogin("Test_Login");
@@ -107,7 +107,7 @@ public class UserControllerTest {
 
     @Test
     void updateUser() throws Exception {
-        when(userService.updateUserById(any(User.class))).thenReturn(user);
+        when(userService.updateUser(any(User.class))).thenReturn(user);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -118,7 +118,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
         assertThat(result.getResponse().getContentAsString(), allOf(notNullValue()));
-        verify(userService, times(1)).updateUserById(any(User.class));
+        verify(userService, times(1)).updateUser(any(User.class));
     }
 
     @Test

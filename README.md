@@ -7,7 +7,7 @@ The site offers recipes for all tastes, food habits and religious beliefs, as we
 
 ## Database.
 
-A MySQL database is connected to the project. It contains 5 tables. User - stores information about users. At the time of its creation, it had 3 users. Recipe - stores data about recipes that users are interested in. There were 3 recipes at the time of creation. Feedback - stores comments on recipes. Products - stores basic product data for use in recipes, in the recipe table of basic product consumption. Role - stores access data for resource use.
+A Postgres SQL database is connected to the project. It contains 5 tables. User - stores information about users. At the time of its creation, it had 3 users. Recipe - stores data about recipes that users are interested in. There were 3 recipes at the time of creation. Feedback - stores comments on recipes. Products - stores basic product data for use in recipes, in the recipe table of basic product consumption. Role - stores access data for resource use.
 
 ## Registration.
 

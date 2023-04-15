@@ -2,7 +2,8 @@ package com.tms.kulinar.controller;
 
 import com.tms.kulinar.domain.Recipe;
 import com.tms.kulinar.exception.CustomException;
-import com.tms.kulinar.repository.RecipeRepository;
+import com.tms.kulinar.exception.ResourceNotFoundException;
+import com.tms.kulinar.service.RecipeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -30,34 +31,30 @@ import java.util.ArrayList;
 @RequestMapping("/recipe")
 public class RecipeController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final RecipeRepository recipeRepository;
+    private final RecipeService recipeService;
 
     @Autowired
-    public RecipeController(RecipeRepository recipeRepository) {
-        this.recipeRepository = recipeRepository;
+    public RecipeController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
-    @Operation(description = "Ищет юзера по ID", summary = "Ищет юзера")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Все ОК! Улыбаемся и машем"),
-            @ApiResponse(responseCode = "404", description = "Куда ты жмал?!!? Ничего не нашел")
-    })
-
     @GetMapping("/{id}")
-    @Tag(name = "byID", description = "ищём по id")
     public ResponseEntity<Recipe> getRecipesById(@PathVariable int id) {
-        Recipe recipe = recipeRepository.getRecipeById(id);
-        return new ResponseEntity<>(recipe, HttpStatus.OK);
+        Recipe recipe = recipeService.getRecipeById(id);
+        return new ResponseEntity<>(recipe, recipe.getId() != 0 ? HttpStatus.OK : HttpStatus.CONFLICT);
     }
 
     @GetMapping("/getAll")
     public ResponseEntity<ArrayList<Recipe>> getAllRecipes() {
-        return new ResponseEntity<>(recipeRepository.getAllRecipe(), HttpStatus.OK);
+        if (recipeService.getAllRecipes().isEmpty()) {
+            throw new ResourceNotFoundException("Not found any users");
+        }
+        return new ResponseEntity<>(recipeService.getAllRecipes(), HttpStatus.OK);
     }
 
     @PostMapping("/create")
     public ResponseEntity<HttpStatus> createRecipe(@RequestBody @Valid Recipe recipe) {
-        Recipe resultRecipe = recipeRepository.createRecipe(recipe);
+        Recipe resultRecipe = recipeService.createRecipe(recipe);
         if (resultRecipe == null) {
             throw new CustomException("RECIPE_WAS_NOT_CREATED");
         }
@@ -72,13 +69,13 @@ public class RecipeController {
             }
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        recipeRepository.updateRecipe(recipe);
+        recipeService.updateRecipe(recipe);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity<HttpStatus> deleteRecipe(@RequestBody @Valid Recipe recipe, BindingResult bindingResult) {
-        Recipe resultRecipe = recipeRepository.deleteProducts(recipe);
+        Recipe resultRecipe = recipeService.deleteRecipe(recipe);
         if (resultRecipe == null) {
             throw new CustomException("RECIPE_WAS_NOT_DELETED");
         }

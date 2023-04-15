@@ -2,20 +2,22 @@ package com.tms.kulinar.service;
 
 import com.tms.kulinar.domain.User;
 import com.tms.kulinar.domain.request.RegistrationUser;
-import com.tms.kulinar.repository.UserRepositoryJPA;
+import com.tms.kulinar.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SecurityService {
-    private final UserRepositoryJPA userRepositoryJPA;
+    private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public SecurityService(UserRepositoryJPA userRepositoryJPA, PasswordEncoder passwordEncoder) {
-        this.userRepositoryJPA = userRepositoryJPA;
+    public SecurityService(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
+        this.usersRepository = usersRepository;
         this.passwordEncoder = passwordEncoder;
 
     }
@@ -24,15 +26,14 @@ public class SecurityService {
     public boolean registration(RegistrationUser registrationUser) {
         try {
             User user = new User();
-            user.setFirst_name(registrationUser.getFirst_name());
-            user.setLast_name(registrationUser.getLast_name());
+            user.setFirstName(registrationUser.getFirstName());
+            user.setLastName(registrationUser.getLastName());
             user.setEmail(registrationUser.getEmail());
             user.setPhone(registrationUser.getPhone());
             user.setLogin(registrationUser.getLogin());
             user.setPassword(passwordEncoder.encode(registrationUser.getPassword()));
-
-            User savedUser = (userRepositoryJPA.save(user));
-            userRepositoryJPA.addRole(savedUser.getId());
+            user.setRole("USER");
+            User savedUser = (usersRepository.createUser(user));
             if (savedUser != null) {
                 return true;
             }
@@ -41,4 +42,5 @@ public class SecurityService {
         }
         return false;
     }
+
 }

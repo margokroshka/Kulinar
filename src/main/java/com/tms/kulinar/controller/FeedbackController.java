@@ -3,11 +3,7 @@ package com.tms.kulinar.controller;
 import com.tms.kulinar.domain.Feedback;
 import com.tms.kulinar.exception.CustomException;
 import com.tms.kulinar.exception.ResourceNotFoundException;
-import com.tms.kulinar.repository.FeedbackRepository;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.tms.kulinar.service.FeedbackService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,31 +28,25 @@ import java.util.ArrayList;
 public class FeedbackController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private final FeedbackRepository feedbackRepository;
+    private final FeedbackService feedbackService;
 
     @Autowired
-    public FeedbackController(FeedbackRepository feedbackRepository) {
-        this.feedbackRepository = feedbackRepository;
+    public FeedbackController(FeedbackService feedbackService) {
+        this.feedbackService = feedbackService;
     }
 
-    @Operation(description = "Ищет фидбэк по name", summary = "Ищет фидбэк")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Все ОК! Улыбаемся и машем"),
-            @ApiResponse(responseCode = "404", description = "Куда ты жмал?!!? Ничего не нашел")
-    })
     @GetMapping("/{id}")
-    @Tag(name = "byId", description = "ищём по id")
     public ResponseEntity<Feedback> getFeedbackById(@PathVariable int id) {
-        Feedback feedback = feedbackRepository.getFeedbackById(id);
+        Feedback feedback = feedbackService.getFeedbackById(id);
         return new ResponseEntity<>(feedback, feedback.getId() != 0 ? HttpStatus.OK : HttpStatus.CONFLICT);
     }
 
     @GetMapping("/getAll")
     public ResponseEntity<ArrayList<Feedback>> getAllFeedback() {
-        if (feedbackRepository.getAllFeedback().isEmpty()) {
+        if (feedbackService.getAllFeedback().isEmpty()) {
             throw new ResourceNotFoundException("Not found any feedback");
         }
-        return new ResponseEntity<>(feedbackRepository.getAllFeedback(), HttpStatus.OK);
+        return new ResponseEntity<>(feedbackService.getAllFeedback(), HttpStatus.OK);
     }
 
     @PostMapping("/createFeedback")
@@ -67,7 +57,7 @@ public class FeedbackController {
             }
             throw new CustomException("FEEDBACK_WAS_NOT_CREATED");
         }
-        return new ResponseEntity<>(feedbackRepository.createFeedback(feedback) != null ? HttpStatus.CREATED : HttpStatus.CONFLICT);
+        return new ResponseEntity<>(feedbackService.createFeedback(feedback) != null ? HttpStatus.CREATED : HttpStatus.CONFLICT);
     }
 
     @PutMapping("/update/{id}")
@@ -78,13 +68,13 @@ public class FeedbackController {
             }
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        feedbackRepository.updateFeedback(feedback);
+        feedbackService.updateFeedback(feedback);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity<HttpStatus> deleteFeedback(@RequestBody @Valid Feedback feedback) {
-        Feedback resultFeedback = feedbackRepository.deleteFeedback(feedback);
+        Feedback resultFeedback = feedbackService.deleteFeedback(feedback);
         if (resultFeedback == null) {
             throw new CustomException("FEEDBACK_WAS_NOT_DELETED");
         }

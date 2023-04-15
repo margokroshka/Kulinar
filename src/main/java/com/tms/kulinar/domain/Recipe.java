@@ -45,7 +45,7 @@ public class Recipe {
     private String type_meal;
 
     @Column(name = "products_id_fk")
-    private Integer products_id_fk;
+    private Integer productsIdFk;
 
     @JsonIgnore
     @XmlTransient

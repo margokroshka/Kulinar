@@ -54,7 +54,7 @@ public class RecipeRepository {
         return recipe;
     }
 
-    public Recipe deleteProducts(Recipe recipe) {
+    public Recipe deleteRecipe(Recipe recipe) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.delete(recipe);

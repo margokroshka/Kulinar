@@ -11,12 +11,10 @@ import com.tms.kulinar.repository.ProductsRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -58,7 +56,7 @@ public class ProductControllerTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
         this.mvc = MockMvcBuilders.standaloneSetup(productsController).build();
-        products.setProduct_name("Potato");
+        products.setProductName("Potato");
         products.setCount(5);
         products.setQuantity(3);
     }

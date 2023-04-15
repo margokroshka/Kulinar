@@ -35,6 +35,14 @@ public class UsersRepository {
         session.close();
         return user;
     }
+    public User getUserByName(String name) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        User user = session.get(User.class, name);
+        session.getTransaction().commit();
+        session.close();
+        return user;
+    }
 
     public User createUser(User user) {
         Session session = sessionFactory.openSession();
@@ -62,4 +70,6 @@ public class UsersRepository {
         session.close();
         return user;
     }
+
+
 }

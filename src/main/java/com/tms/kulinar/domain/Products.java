@@ -26,5 +26,5 @@ public class Products {
     private Integer quantity;
 
     @Column(name = "product_name")
-    private String product_name;
+    private String productName;
 }

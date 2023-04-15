@@ -3,9 +3,10 @@ package com.tms.kulinar.controller;
 import com.tms.kulinar.domain.User;
 import com.tms.kulinar.exception.CustomException;
 import com.tms.kulinar.exception.ResourceNotFoundException;
-import com.tms.kulinar.repository.UsersRepository;
+import com.tms.kulinar.service.UsersService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,25 +30,33 @@ import java.util.ArrayList;
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final UsersRepository usersRepository;
+    private final UsersService usersService;
 
     @Autowired
-    public UserController(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
+    public UserController(UsersService usersService) {
+        this.usersService = usersService;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id) {
-        User users = usersRepository.getUserById(id);
+        User users = usersService.getUserById(id);
         return new ResponseEntity<>(users, users.getId() != 0 ? HttpStatus.OK : HttpStatus.CONFLICT);
     }
 
     @GetMapping("/getAll")
     public ResponseEntity<ArrayList<User>> getAllUsers() {
-        if (usersRepository.getAllUsers().isEmpty()) {
+        if (usersService.getAllUsers().isEmpty()) {
             throw new ResourceNotFoundException("Not found any users");
         }
-        return new ResponseEntity<>(usersRepository.getAllUsers(), HttpStatus.OK);
+        return new ResponseEntity<>(usersService.getAllUsers(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getAuth")
+    public ResponseEntity<User> getAuthUser() {
+        if (usersService.getAllUsers().isEmpty()) {
+            throw new ResourceNotFoundException("Not found any users");
+        }
+        return new ResponseEntity<>(usersService.getUserByLogin(), HttpStatus.OK);
     }
 
     @PostMapping("/createUser")
@@ -58,7 +67,7 @@ public class UserController {
             }
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(usersRepository.createUser(user) != null ? HttpStatus.CREATED : HttpStatus.CONFLICT);
+        return new ResponseEntity<>(usersService.createUser(user) != null ? HttpStatus.CREATED : HttpStatus.CONFLICT);
     }
 
     @PutMapping("/update/{id}")
@@ -69,13 +78,13 @@ public class UserController {
             }
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(usersRepository.updateUser(user) != null ? HttpStatus.CREATED : HttpStatus.CONFLICT);
+        return new ResponseEntity<>(usersService.updateUser(user) != null ? HttpStatus.CREATED : HttpStatus.CONFLICT);
 
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity<HttpStatus> delete(@RequestBody @Valid User user) {
-        User userResult = usersRepository.deleteUser(user);
+        User userResult = usersService.deleteUser(user);
         if (userResult == null) {
             throw new CustomException("USER_WAS_NOT_DELETED");
         }

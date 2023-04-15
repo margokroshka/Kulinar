@@ -28,5 +28,5 @@ public class Feedback {
     private String content;
 
     @Column(name = "recipe_id")
-    private Integer recipe_id;
+    private Integer recipeId;
 }

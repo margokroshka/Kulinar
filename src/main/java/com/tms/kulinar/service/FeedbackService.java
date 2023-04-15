@@ -29,7 +29,7 @@ public class FeedbackService {
         return feedbackRepository.createFeedback(feedback);
     }
 
-    public Feedback updateFeedbackById(Feedback feedback) {
+    public Feedback updateFeedback(Feedback feedback) {
         return feedbackRepository.updateFeedback(feedback);
     }
 

@@ -100,7 +100,7 @@ public class FeedbackControllerTest {
 
     @Test
     void updateFeedback() throws Exception {
-        when(feedbackService.updateFeedbackById(any(Feedback.class))).thenReturn(feedback);
+        when(feedbackService.updateFeedback(any(Feedback.class))).thenReturn(feedback);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -111,7 +111,7 @@ public class FeedbackControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
         assertThat(result.getResponse().getContentAsString(), allOf(notNullValue()));
-        verify(feedbackService, times(1)).updateFeedbackById(any(Feedback.class));
+        verify(feedbackService, times(1)).updateFeedback(any(Feedback.class));
     }
 
     @Test

@@ -125,6 +125,6 @@ public class RecipeControllerTest {
         MvcResult result = mvc.perform(delete("/recipe/delete", anyLong()))
                 .andExpect(status().isNoContent())
                 .andReturn();
-        verify(recipeRepository, times(1)).deleteProducts(any(Recipe.class));
+        verify(recipeRepository, times(1)).deleteRecipe(any(Recipe.class));
     }
 }

@@ -27,10 +27,11 @@ public class User {
     @SequenceGenerator(name = "users_k_id_seq", sequenceName = "users_k_id_seq", allocationSize = 1)
     private Integer id;
     @Column(name = "first_name")
-    private String first_name;
+    private String firstName;
 
     @Column(name = "last_name")
-    private String last_name;
+    private String lastName;
+
     @Column(name = "email")
     private String email;
 
@@ -42,6 +43,9 @@ public class User {
 
     @Column(name = "login")
     private String login;
+
+    @Column(name = "role")
+    private String role;
 
     private static final Logger log = LoggerFactory.getLogger(User.class);
 
