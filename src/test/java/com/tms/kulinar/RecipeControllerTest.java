@@ -61,7 +61,6 @@ public class RecipeControllerTest {
         recipe.setComplexity(5);
         recipe.setText("it is text recipe");
         recipe.setTypeMeal("main_meal");
-
     }
 
     @Test

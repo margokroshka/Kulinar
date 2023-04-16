@@ -39,7 +39,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @ExtendWith(MockitoExtension.class)
 public class ProductControllerTest {
     MockMvc mvc;
@@ -122,5 +121,4 @@ public class ProductControllerTest {
                 .andReturn();
         verify(productsRepository, times(1)).deleteProducts(any(Products.class));
     }
-
 }

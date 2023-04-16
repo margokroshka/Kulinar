@@ -27,6 +27,7 @@ import java.util.ArrayList;
 @RequestMapping("/products")
 public class ProductsController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     private final ProductsService productsService;
 
     @Autowired

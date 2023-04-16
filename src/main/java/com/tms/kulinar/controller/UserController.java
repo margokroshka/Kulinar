@@ -29,6 +29,7 @@ import java.util.ArrayList;
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     private final UsersService usersService;
 
     @Autowired

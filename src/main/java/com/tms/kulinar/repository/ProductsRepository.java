@@ -19,19 +19,15 @@ public class ProductsRepository {
 
     public ArrayList<Products> getAllProducts() {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
         Query query = session.createQuery("from Products ");
         ArrayList<Products> list = (ArrayList<Products>) query.getResultList();
-        session.getTransaction().commit();
         session.close();
         return list;
     }
 
     public Products getProductsById(int id) {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
         Products products = session.get(Products.class, id);
-        session.getTransaction().commit();
         session.close();
         return products;
     }

@@ -27,6 +27,7 @@ import java.util.ArrayList;
 @RequestMapping("/recipe")
 public class RecipeController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     private final RecipeService recipeService;
 
     @Autowired

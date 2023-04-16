@@ -19,19 +19,15 @@ public class FeedbackRepository {
 
     public ArrayList<Feedback> getAllFeedback() {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
         Query query = session.createQuery("from Feedback ");
         ArrayList<Feedback> list = (ArrayList<Feedback>) query.getResultList();
-        session.getTransaction().commit();
         session.close();
         return list;
     }
 
     public Feedback getFeedbackById(int id) {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
         Feedback feedback = session.get(Feedback.class, id);
-        session.getTransaction().commit();
         session.close();
         return feedback;
     }

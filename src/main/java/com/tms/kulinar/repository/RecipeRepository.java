@@ -19,19 +19,15 @@ public class RecipeRepository {
 
     public ArrayList<Recipe> getAllRecipe() {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
         Query query = session.createQuery("from Recipe ");
         ArrayList<Recipe> list = (ArrayList<Recipe>) query.getResultList();
-        session.getTransaction().commit();
         session.close();
         return list;
     }
 
     public Recipe getRecipeById(int id) {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
         Recipe recipe = session.get(Recipe.class, id);
-        session.getTransaction().commit();
         session.close();
         return recipe;
     }

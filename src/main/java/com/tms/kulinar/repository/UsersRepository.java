@@ -19,19 +19,15 @@ public class UsersRepository {
 
     public ArrayList<User> getAllUsers() {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
         Query query = session.createQuery("from User ");
         ArrayList<User> list = (ArrayList<User>) query.getResultList();
-        session.getTransaction().commit();
         session.close();
         return list;
     }
 
     public User getUserById(int id) {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
         User user = session.get(User.class, id);
-        session.getTransaction().commit();
         session.close();
         return user;
     }

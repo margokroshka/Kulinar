@@ -26,6 +26,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_k_id_seq")
     @SequenceGenerator(name = "users_k_id_seq", sequenceName = "users_k_id_seq", allocationSize = 1)
     private Integer id;
+
     @Column(name = "first_name")
     private String firstName;
 
@@ -47,12 +48,10 @@ public class User {
     @Column(name = "role")
     private String role;
 
-    private static final Logger log = LoggerFactory.getLogger(User.class);
-
-    public User() {
-    }
-
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe recipe;
+
+    public User() {
+    }
 }
