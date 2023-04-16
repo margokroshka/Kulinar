@@ -24,5 +24,4 @@ public class SecureController {
     public ResponseEntity<HttpResponse> registrationUser(@RequestBody RegistrationUser registrationUser) {
         return new ResponseEntity<>(securityService.registration(registrationUser) ? HttpStatus.CREATED : HttpStatus.CONFLICT);
     }
-
 }

@@ -35,10 +35,14 @@ public class UsersRepository {
         session.close();
         return user;
     }
-    public User getUserByName(String name) {
+
+    public User getUserByName(String login) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        User user = session.get(User.class, name);
+        String hql = "FROM User users WHERE login = :login";
+        org.hibernate.query.Query<?> query = session.createQuery(hql);
+        query.setParameter("login", login);
+        User user = (User) query.uniqueResult();
         session.getTransaction().commit();
         session.close();
         return user;
@@ -70,6 +74,4 @@ public class UsersRepository {
         session.close();
         return user;
     }
-
-
 }

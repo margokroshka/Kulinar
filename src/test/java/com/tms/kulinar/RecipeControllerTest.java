@@ -11,12 +11,10 @@ import com.tms.kulinar.repository.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -62,7 +60,7 @@ public class RecipeControllerTest {
         recipe.setAmount("200g");
         recipe.setComplexity(5);
         recipe.setText("it is text recipe");
-        recipe.setType_meal("main_meal");
+        recipe.setTypeMeal("main_meal");
 
     }
 

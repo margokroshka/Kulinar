@@ -1,7 +1,6 @@
 package com.tms.kulinar.service;
 
 import com.tms.kulinar.domain.User;
-import com.tms.kulinar.domain.request.RegistrationUser;
 import com.tms.kulinar.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,16 +18,16 @@ public class UsersService {
         this.userRepository = userRepository;
     }
 
-    public User getUserById(int id){
-       return userRepository.getUserById(id);
+    public User getUserById(int id) {
+        return userRepository.getUserById(id);
     }
 
-    public ArrayList<User> getAllUsers(){
+    public ArrayList<User> getAllUsers() {
         return (ArrayList<User>) userRepository.getAllUsers();
     }
 
     public User createUser(User user) {
-         return userRepository.createUser(user);
+        return userRepository.createUser(user);
     }
 
     public User updateUser(User user) {
@@ -36,7 +35,7 @@ public class UsersService {
     }
 
     public User deleteUser(User user) {
-         userRepository.deleteUser(user);
+        userRepository.deleteUser(user);
         return user;
     }
 

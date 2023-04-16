@@ -51,7 +51,6 @@ public class FeedbackRepository {
         session.saveOrUpdate(feedback);
         session.getTransaction().commit();
         session.close();
-
         return feedback;
     }
 

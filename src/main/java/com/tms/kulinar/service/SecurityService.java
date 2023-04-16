@@ -4,8 +4,6 @@ import com.tms.kulinar.domain.User;
 import com.tms.kulinar.domain.request.RegistrationUser;
 import com.tms.kulinar.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,10 +17,8 @@ public class SecurityService {
     public SecurityService(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
         this.usersRepository = usersRepository;
         this.passwordEncoder = passwordEncoder;
-
     }
 
-    @Transactional(rollbackFor = Exception.class)
     public boolean registration(RegistrationUser registrationUser) {
         try {
             User user = new User();
@@ -42,5 +38,4 @@ public class SecurityService {
         }
         return false;
     }
-
 }

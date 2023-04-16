@@ -22,7 +22,6 @@ public class FeedbackService {
 
     public ArrayList<Feedback> getAllFeedback() {
         return feedbackRepository.getAllFeedback();
-
     }
 
     public Feedback createFeedback(Feedback feedback) {

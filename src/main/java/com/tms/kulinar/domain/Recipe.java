@@ -42,7 +42,7 @@ public class Recipe {
     private String text;
 
     @Column(name = "type_meal")
-    private String type_meal;
+    private String typeMeal;
 
     @Column(name = "products_id_fk")
     private Integer productsIdFk;
