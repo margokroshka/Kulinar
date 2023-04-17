@@ -16,7 +16,7 @@ public class RecipeService {
         this.recipeRepository = recipeRepository;
     }
 
-    public Recipe getRecipeById(int id) {
+    public Recipe getRecipeById(Integer id) {
         return recipeRepository.getRecipeById(id);
     }
 

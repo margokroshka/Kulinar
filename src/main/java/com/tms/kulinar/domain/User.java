@@ -1,6 +1,8 @@
 package com.tms.kulinar.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,8 @@ import javax.persistence.CascadeType;
 @Setter
 @Getter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
@@ -52,6 +56,6 @@ public class User {
     @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe recipe;
 
-    public User() {
+    public User(int id, String testName, String testLestN, String testEmail, String phone, String testPassword, String testLogin, String admin, int i) {
     }
 }

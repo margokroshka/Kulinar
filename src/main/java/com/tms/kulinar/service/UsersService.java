@@ -1,9 +1,13 @@
 package com.tms.kulinar.service;
 
 import com.tms.kulinar.domain.User;
+import com.tms.kulinar.repository.FeedbackRepository;
+import com.tms.kulinar.repository.ProductsRepository;
+import com.tms.kulinar.repository.RecipeRepository;
 import com.tms.kulinar.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,7 +22,7 @@ public class UsersService {
         this.userRepository = userRepository;
     }
 
-    public User getUserById(int id) {
+    public User getUserById(Integer id) {
         return userRepository.getUserById(id);
     }
 

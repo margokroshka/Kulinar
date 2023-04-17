@@ -1,7 +1,9 @@
 package com.tms.kulinar.domain;
 
 import com.tms.kulinar.annotation.IsNub;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,6 +15,8 @@ import javax.persistence.SequenceGenerator;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "feedback")
 public class Feedback {
     @Id

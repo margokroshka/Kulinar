@@ -29,12 +29,14 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/registration", "/auth", "/swagger-ui", "/swagger-ui/index.html").permitAll()
+                .antMatchers("/", "/registration", "/swagger-ui", "/swagger-ui/index.html").permitAll()
                 .antMatchers("/feedback/**", "/products/**", "/recipe/**","/user/getAuth").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/user/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                .and()
+                .httpBasic()
                 .and()
                 .build();
     }

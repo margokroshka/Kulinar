@@ -1,7 +1,9 @@
 package com.tms.kulinar.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -19,6 +21,8 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "recipe")
 public class Recipe {
     @Id
@@ -51,4 +55,7 @@ public class Recipe {
     @XmlTransient
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "recipe")
     private List<User> users;
+
+    public Recipe(int id, int taste, String time, String amount, int complexity, String recipe, String main_meal, int productsIdFk, int i) {
+    }
 }
