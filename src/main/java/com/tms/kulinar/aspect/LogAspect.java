@@ -1,4 +1,4 @@
-package com.tms.kulinar.asspect;
+package com.tms.kulinar.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;

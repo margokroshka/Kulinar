@@ -1,5 +1,10 @@
 version: '3.9'
 
+networks:
+  backend:
+    name: backend
+    driver: bridge
+
 services:
   db:
     container_name: db
@@ -10,7 +15,7 @@ services:
       - POSTGRES_PASSWORD=root
     image: postgres:latest
     networks:
-      - kulinarNetwork
+      - backend
 
   kulinar:
     container_name: kulinar
@@ -22,10 +27,8 @@ services:
     depends_on:
       - db
     networks:
-      - kulinarNetwork
+      - backend
 
-networks:
-  backend:
-    driver: bridge
+
 
 

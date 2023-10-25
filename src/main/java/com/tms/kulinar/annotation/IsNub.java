@@ -1,6 +1,6 @@
 package com.tms.kulinar.annotation;
 
-import com.tms.kulinar.validator.IsNubValidator;
+import com.tms.kulinar.service.validator.IsNubValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

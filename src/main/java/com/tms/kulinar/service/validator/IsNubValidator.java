@@ -1,4 +1,4 @@
-package com.tms.kulinar.validator;
+package com.tms.kulinar.service.validator;
 
 import com.tms.kulinar.annotation.IsNub;
 
